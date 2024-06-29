@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda de Golosinas</title>
+</head>
+<body>
+    <h1>Bienvenido a la Tienda de Golosinas</h1>
+    <div id="productos"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/api/productos')
+                .then(response => response.json())
+                .then(data => {
+                    const productosDiv = document.getElementById('productos');
+                    data.forEach(producto => {
+                        const productoDiv = document.createElement('div');
+                        productoDiv.innerHTML = `
+                            <h2>${producto.nombre}</h2>
+                            <p>${producto.descripcion}</p>
+                            <p>Stock: ${producto.stock}</p>
+                            <p>Precio: ${producto.precio_venta}</p>
+                            <p>Fecha: ${producto.fecha}</p>
+                            <img src="${producto.imagen}" alt="${producto.nombre}" />
+                        `;
+                        productosDiv.appendChild(productoDiv);
+                    });
+                });
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+<!-- <!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda de Golosinas</title>
+</head>
+<body>
+    <h1>Bienvenido a la Tienda de Golosinas</h1>
+</body>
+</html>
+-->
