@@ -1,3 +1,0 @@
-
-
-#campos = ('email', 'password', 'fecha')
