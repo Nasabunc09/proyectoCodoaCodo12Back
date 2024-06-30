@@ -7,20 +7,70 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        #productos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
         }
         .producto {
+            background-color: #fff;
             border: 1px solid #ccc;
-            padding: 10px;
-            margin-bottom: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+        }
+        .producto img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+        .producto h2 {
+            font-size: 24px;
+            margin: 10px 0;
+        }
+        .producto p {
+            font-size: 16px;
+            margin: 5px 0;
         }
         .form-container {
             margin-top: 20px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         .form-container input, .form-container textarea {
             display: block;
             margin-bottom: 10px;
-            padding: 5px;
-            width: 100%;
+            padding: 10px;
+            width: calc(100% - 22px);
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-container button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .form-container button:hover {
+            background-color: #218838;
         }
     </style>
 </head>
@@ -29,21 +79,34 @@
     <div id="productos"></div>
 
     <div class="form-container">
-        <h2>Agregar Nuevo Producto</h2>
-        <form id="form-agregar-producto">
+        <h2>Agregar Producto</h2>
+        <form id="agregarProductoForm">
             <input type="text" id="nombre" placeholder="Nombre" required>
-            <textarea id="descripcion" placeholder="Descripción" required></textarea>
+            <input type="text" id="descripcion" placeholder="Descripción" required>
             <input type="number" id="stock" placeholder="Stock" required>
-            <input type="number" id="precio_venta" placeholder="Precio de Venta" required>
-            <input type="date" id="fecha" required>
-            <input type="text" id="imagen" placeholder="URL de la Imagen" required>
-            <button type="submit">Agregar Producto</button>
+            <input type="number" id="precio_venta" placeholder="Precio" required>
+            <input type="date" id="fecha" placeholder="Fecha" required>
+            <input type="text" id="imagen" placeholder="URL de la imagen" required>
+            <button type="submit">Agregar</button>
+        </form>
+    </div>
+
+    <div class="form-container">
+        <h2>Actualizar Producto</h2>
+        <form id="actualizarProductoForm">
+            <input type="number" id="id" placeholder="ID del Producto" required>
+            <input type="text" id="nombreAct" placeholder="Nombre">
+            <input type="text" id="descripcionAct" placeholder="Descripción">
+            <input type="number" id="stockAct" placeholder="Stock">
+            <input type="number" id="precio_ventaAct" placeholder="Precio">
+            <input type="date" id="fechaAct" placeholder="Fecha">
+            <input type="text" id="imagenAct" placeholder="URL de la imagen">
+            <button type="submit">Actualizar</button>
         </form>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Fetch and display products
             fetch('/api/productos')
                 .then(response => response.json())
                 .then(data => {
@@ -54,19 +117,17 @@
                         productoDiv.innerHTML = `
                             <h2>${producto.nombre}</h2>
                             <p>${producto.descripcion}</p>
-                            <p>Stock: ${producto.stock}</p>
-                            <p>Precio: ${producto.precio_venta}</p>
-                            <p>Fecha: ${producto.fecha}</p>
+                            <p><strong>Stock:</strong> ${producto.stock}</p>
+                            <p><strong>Precio:</strong> ${producto.precio_venta}</p>
+                            <p><strong>Fecha:</strong> ${producto.fecha}</p>
                             <img src="${producto.imagen}" alt="${producto.nombre}" />
                         `;
                         productosDiv.appendChild(productoDiv);
                     });
                 });
-
-            // Handle new product form submission
-            const form = document.getElementById('form-agregar-producto');
-            form.addEventListener('submit', function(event) {
-                event.preventDefault();
+            
+            document.getElementById('agregarProductoForm').addEventListener('submit', function(e) {
+                e.preventDefault();
                 const nuevoProducto = {
                     nombre: document.getElementById('nombre').value,
                     descripcion: document.getElementById('descripcion').value,
@@ -75,7 +136,6 @@
                     fecha: document.getElementById('fecha').value,
                     imagen: document.getElementById('imagen').value,
                 };
-
                 fetch('/api/productos', {
                     method: 'POST',
                     headers: {
@@ -86,9 +146,33 @@
                 .then(response => response.json())
                 .then(data => {
                     alert(data.mensaje);
-                    location.reload(); // Recargar la página para ver el nuevo producto
+                    location.reload();
+                });
+            });
+
+            document.getElementById('actualizarProductoForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const id = document.getElementById('id').value;
+                const productoActualizado = {
+                    nombre: document.getElementById('nombreAct').value,
+                    descripcion: document.getElementById('descripcionAct').value,
+                    stock: document.getElementById('stockAct').value,
+                    precio_venta: document.getElementById('precio_ventaAct').value,
+                    fecha: document.getElementById('fechaAct').value,
+                    imagen: document.getElementById('imagenAct').value,
+                };
+                fetch(`/api/productos/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(productoActualizado)
                 })
-                .catch(error => console.error('Error:', error));
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.mensaje);
+                    location.reload();
+                });
             });
         });
     </script>

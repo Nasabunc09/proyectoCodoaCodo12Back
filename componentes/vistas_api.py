@@ -22,7 +22,25 @@ def agregar_producto():
     nuevo_producto.guardar_db()
     return jsonify({"mensaje": "Producto agregado exitosamente"}), 201
 
-# Agregar más rutas para actualizar y eliminar productos según sea necesario
+@api.route('/api/productos/<int:id>', methods=['PUT'])
+def actualizar_producto(id):
+    datos = request.json
+    producto = Producto.obtener_por_id(id)
+    if producto:
+        producto.nombre = datos.get('nombre', producto.nombre)
+        producto.descripcion = datos.get('descripcion', producto.descripcion)
+        producto.stock = datos.get('stock', producto.stock)
+        producto.precio_venta = datos.get('precio_venta', producto.precio_venta)
+        producto.fecha = datos.get('fecha', producto.fecha)
+        producto.imagen = datos.get('imagen', producto.imagen)
+        producto.actualizar_db()
+        return jsonify({"mensaje": "Producto actualizado exitosamente"})
+    return jsonify({"mensaje": "Producto no encontrado"}), 404
 
-
-# Agregar más rutas para actualizar y eliminar productos según sea necesario
+@api.route('/api/productos/<int:id>', methods=['DELETE'])
+def eliminar_producto(id):
+    producto = Producto.obtener_por_id(id)
+    if producto:
+        producto.eliminar_db()
+        return jsonify({"mensaje": "Producto eliminado exitosamente"})
+    return jsonify({"mensaje": "Producto no encontrado"}), 404
