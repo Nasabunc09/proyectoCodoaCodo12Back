@@ -1,4 +1,5 @@
-import config_db
+#import config_db
+from componentes.config_db import conexion
 from datetime import datetime
 
 class Producto:
@@ -6,7 +7,8 @@ class Producto:
     #Atributos de clase
     tabla = 'producto'
     campos = ('nombre', 'descripcion', 'stock', 'precio_venta', 'fecha', 'imagen')
-    conexion = config_db.conexion
+    #conexion = config_db.conexion
+    conexion = conexion
 
     #Metodo constructor
     def __init__(self,nombre,descripcion,stock,precio_venta,fecha,imagen):
