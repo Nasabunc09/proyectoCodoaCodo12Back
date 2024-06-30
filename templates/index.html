@@ -1,23 +1,56 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tienda de Golosinas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .producto {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .form-container {
+            margin-top: 20px;
+        }
+        .form-container input, .form-container textarea {
+            display: block;
+            margin-bottom: 10px;
+            padding: 5px;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
     <h1>Bienvenido a la Tienda de Golosinas</h1>
     <div id="productos"></div>
 
+    <div class="form-container">
+        <h2>Agregar Nuevo Producto</h2>
+        <form id="form-agregar-producto">
+            <input type="text" id="nombre" placeholder="Nombre" required>
+            <textarea id="descripcion" placeholder="Descripción" required></textarea>
+            <input type="number" id="stock" placeholder="Stock" required>
+            <input type="number" id="precio_venta" placeholder="Precio de Venta" required>
+            <input type="date" id="fecha" required>
+            <input type="text" id="imagen" placeholder="URL de la Imagen" required>
+            <button type="submit">Agregar Producto</button>
+        </form>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Fetch and display products
             fetch('/api/productos')
                 .then(response => response.json())
                 .then(data => {
                     const productosDiv = document.getElementById('productos');
                     data.forEach(producto => {
                         const productoDiv = document.createElement('div');
+                        productoDiv.className = 'producto';
                         productoDiv.innerHTML = `
                             <h2>${producto.nombre}</h2>
                             <p>${producto.descripcion}</p>
@@ -29,23 +62,35 @@
                         productosDiv.appendChild(productoDiv);
                     });
                 });
+
+            // Handle new product form submission
+            const form = document.getElementById('form-agregar-producto');
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const nuevoProducto = {
+                    nombre: document.getElementById('nombre').value,
+                    descripcion: document.getElementById('descripcion').value,
+                    stock: document.getElementById('stock').value,
+                    precio_venta: document.getElementById('precio_venta').value,
+                    fecha: document.getElementById('fecha').value,
+                    imagen: document.getElementById('imagen').value,
+                };
+
+                fetch('/api/productos', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(nuevoProducto)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.mensaje);
+                    location.reload(); // Recargar la página para ver el nuevo producto
+                })
+                .catch(error => console.error('Error:', error));
+            });
         });
     </script>
 </body>
 </html>
-
-
-
-
-<!-- <!DOCTYPE html> 
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tienda de Golosinas</title>
-</head>
-<body>
-    <h1>Bienvenido a la Tienda de Golosinas</h1>
-</body>
-</html>
--->

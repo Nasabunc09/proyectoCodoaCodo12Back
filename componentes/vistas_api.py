@@ -1,6 +1,5 @@
 from flask import Blueprint, jsonify, request
 from componentes.producto import Producto
-from app import app
 
 api = Blueprint('api', __name__)
 
@@ -22,5 +21,8 @@ def agregar_producto():
     )
     nuevo_producto.guardar_db()
     return jsonify({"mensaje": "Producto agregado exitosamente"}), 201
+
+# Agregar más rutas para actualizar y eliminar productos según sea necesario
+
 
 # Agregar más rutas para actualizar y eliminar productos según sea necesario
