@@ -1,0 +1,198 @@
+
+/* Estilos generales */
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+/* Estilos para la sección de datos del cliente */
+.customer-info label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.customer-info input[type="text"],
+.customer-info input[type="email"],
+.customer-info input[type="address"],
+.customer-info textarea {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #9e2020; /* Añade un borde sólido de color gris */
+    border-radius: 5px; /* Hace que el borde sea redondeado */
+}
+
+/* Estilos para la sección de forma de pago */
+.payment-method select {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #9e2020; /* Añade un borde sólido de color gris */
+    border-radius: 5px; /* Hace que el borde sea redondeado */
+}
+
+/* Estilos para la sección de forma de entrega */
+.delivery-method input[type="radio"] {
+    margin-right: 5px;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan en varias líneas */
+    justify-content: space-between; /* Distribuye los elementos a lo largo del contenedor */
+}
+
+.product {
+    flex: 0 0 calc(33.33% - 10px); /* Calcula el ancho de cada producto (ajustar según el número de productos por fila) */
+    margin-bottom: 20px; /* Espacio entre las filas */
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.product-list{
+    display: flex;
+    font-size: small;
+    border: 1px solid #9e2020; /* Añade un borde sólido de color gris */
+    border-radius: 5px; /* Hace que el borde sea redondeado */
+}
+
+.product-list h2{
+    font-size: medium;
+    text-align: center;
+}
+
+
+/* Estilos para la lista de productos */
+.product-list table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.table-container {
+    overflow-x: auto; /* Agrega scroll horizontal si la tabla es demasiado ancha */
+}
+
+/* Estilos para la lista de productos */
+.product-list .texto-list {
+    font-family: Arial, sans-serif; /* Fuente */
+    color: #082a52; /* Color azul */
+    font-size: 14px; /* Tamaño medio */
+    font-weight: bold; /* Peso de la fuente */
+}
+
+.product-list th,
+.product-list td {
+    
+    padding: 8px;
+    text-align: left;
+}
+
+.product-list th {
+    background-color: #FFF5ED;;
+}
+
+
+button {
+    border-radius: 5px; /* Define el radio de las esquinas */
+}
+
+/* Estilo para el botón actualizar */
+.product-list .update-button {
+    background-color: #007bff; /* Color de fondo azul */
+    color: #fff; /* Color del texto blanco */
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.product-list input {
+    width: 50px; /* Ancho del input */
+    padding: 5px; /* Espaciado interno */
+    border: 1px solid #ccc; /* Borde */
+    border-radius: 4px; /* Borde redondeado */
+    text-align: center; /* Texto centrado */
+}
+
+/* Estilo para el botón borrar */
+.product-list .delete-button {
+    background-color: #ff0000; /* Color de fondo rojo */
+    color: #fff; /* Color del texto blanco */
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    
+}
+
+/* Estilo para el botón comprar */
+.buy-button {
+    background-color: #28a745; /* Color de fondo verde */
+    color: #fff; /* Color del texto blanco */
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+/* Estilos para la imagen */
+.product-list img {
+    max-width: 80px; /* Define el ancho máximo de la imagen */
+    height: auto; /* Permite que la altura se ajuste automáticamente */
+    display: block; /* Para evitar espacios no deseados alrededor de la imagen */
+}
+
+
+
+.total{
+    width: 100%; /* Ancho deseado */
+    text-align: right;
+  
+}
+.total h2 {
+  
+    margin-right: 20px;
+    justify-content: right;
+    
+}
+
+.total p {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-right: 20px;
+
+}
+
+/* Estilos para el botón de comprar dentro de la sección total */
+.total .buy-button {
+    background-color: #28a745; /* Color de fondo verde */
+    color: #fff; /* Color del texto blanco */
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    float:none; /* Hace que el botón se alinee a la derecha */
+    display: inline-block; 
+   
+}
+
+/* Estilos para hacer el diseño adaptable */
+@media only screen and (max-width: 600px) {
+    .customer-info input[type="text"],
+    .customer-info input[type="email"],
+    .customer-info textarea,
+    .payment-method select {
+        width: 100%;
+    }
+    .product-list, .total, .table-container {
+        width: 100%; /* Cambia el ancho al 100% en pantallas más pequeñas */
+    }
+
+  
+ 
+}

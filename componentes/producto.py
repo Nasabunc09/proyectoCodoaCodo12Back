@@ -58,3 +58,11 @@ print(Producto.obtener_todos())
     #     datos = (id, nombre, apellido, cuit)
     #     cursor.execute(consulta.datos)
     #     # ...
+@classmethod
+def eliminar(cls, id):
+        cls.conexion.connect()
+        cursor = cls.conexion.cursor()
+        consulta = f"DELETE FROM {cls.tabla} WHERE id = %s"
+        cursor.execute(consulta, (id,))
+        cls.conexion.commit()
+        cls.conexion.close()
