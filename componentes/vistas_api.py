@@ -39,8 +39,8 @@ def actualizar_producto(id):
 
 @api.route('/api/productos/<int:id>', methods=['DELETE'])
 def eliminar_producto(id):
-    producto = Producto.obtener_por_id(id)
-    if producto:
-        producto.eliminar_db()
-        return jsonify({"mensaje": "Producto eliminado exitosamente"})
-    return jsonify({"mensaje": "Producto no encontrado"}), 404
+  try:
+        Producto.eliminar(id)
+        return jsonify({'mensaje': 'Producto eliminado exitosamente'})
+  except Exception as e:
+        return jsonify({'error': str(e)}), 500

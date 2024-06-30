@@ -1,180 +1,103 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tienda de Golosinas</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-        }
-        h1, h2 {
-            text-align: center;
-        }
-        #productos {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-        }
-        .producto {
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin: 10px;
-            padding: 20px;
-            width: 300px;
-            text-align: center;
-        }
-        .producto img {
-            max-width: 100%;
-            border-radius: 10px;
-        }
-        .producto h2 {
-            font-size: 24px;
-            margin: 10px 0;
-        }
-        .producto p {
-            font-size: 16px;
-            margin: 5px 0;
-        }
-        .form-container {
-            margin-top: 20px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .form-container input, .form-container textarea {
-            display: block;
-            margin-bottom: 10px;
-            padding: 10px;
-            width: calc(100% - 22px);
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .form-container button {
-            padding: 10px 20px;
-            background-color: #28a745;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .form-container button:hover {
-            background-color: #218838;
-        }
-    </style>
+    <script src="https://kit.fontawesome.com/a03e984235.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos-general.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos-carrito.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos-producto.css') }}">
 </head>
 <body>
-    <h1>Bienvenido a la Tienda de Golosinas</h1>
-    <div id="productos"></div>
+    <header class="header">
+        <div class="header_superior">
+            <div class="logo">
+                <h1>Sweet Candy</h1>
+            </div>
+            <div class="search">
+                <input type="search" name="search" placeholder="Buscar...">
+                <a href="./sitio/registro.html" class="login"> <i class="fa-solid fa-user"></i> <span id="usernameDisplay">Login</span></a>
+            </div>
+        </div>
+        <div class="contenedor_menu">
+            <div class="menu">
+                <input type="checkbox" id="check_menu">
+                <label id="label_check" for="check_menu">
+                <i class="fa-solid fa-bars icon_menu" style="color: #631f83;"></i>
+                </label>
+                <nav>
+                    <ul>
+                        <li><a href="index.html" id="seleccion"><i class="fa-solid fa-house" style="color: #631f83;"></i></a></li>
+                        <li><a href="./sitio/ofertas.html">OFERTAS</a></li>
+                        <li><a href="./sitio/nosotros.html">NOSOTROS</a></li>
+                        <li><a href="./sitio/productos.html">PRODUCTOS</a></li> 
+                        <li><a href="./sitio/contacto.html">CONTACTO</a></li>
+                        <li><a href="./sitio/carrito.html">MI CARRITO</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
 
-    <div class="form-container">
-        <h2>Agregar Producto</h2>
-        <form id="agregarProductoForm">
-            <input type="text" id="nombre" placeholder="Nombre" required>
-            <input type="text" id="descripcion" placeholder="Descripción" required>
-            <input type="number" id="stock" placeholder="Stock" required>
-            <input type="number" id="precio_venta" placeholder="Precio" required>
-            <input type="date" id="fecha" placeholder="Fecha" required>
-            <input type="text" id="imagen" placeholder="URL de la imagen" required>
-            <button type="submit">Agregar</button>
-        </form>
-    </div>
+    <section class="banner">
+        <div class="text-center">
+            <h2>Sweet Candy es Alegría en forma de golosinas.</h2>
+        </div>
+    </section>
 
-    <div class="form-container">
-        <h2>Actualizar Producto</h2>
-        <form id="actualizarProductoForm">
-            <input type="number" id="id" placeholder="ID del Producto" required>
-            <input type="text" id="nombreAct" placeholder="Nombre">
-            <input type="text" id="descripcionAct" placeholder="Descripción">
-            <input type="number" id="stockAct" placeholder="Stock">
-            <input type="number" id="precio_ventaAct" placeholder="Precio">
-            <input type="date" id="fechaAct" placeholder="Fecha">
-            <input type="text" id="imagenAct" placeholder="URL de la imagen">
-            <button type="submit">Actualizar</button>
-        </form>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            fetch('/api/productos')
-                .then(response => response.json())
-                .then(data => {
-                    const productosDiv = document.getElementById('productos');
-                    data.forEach(producto => {
-                        const productoDiv = document.createElement('div');
-                        productoDiv.className = 'producto';
-                        productoDiv.innerHTML = `
-                            <h2>${producto.nombre}</h2>
-                            <p>${producto.descripcion}</p>
-                            <p><strong>Stock:</strong> ${producto.stock}</p>
-                            <p><strong>Precio:</strong> ${producto.precio_venta}</p>
-                            <p><strong>Fecha:</strong> ${producto.fecha}</p>
-                            <img src="${producto.imagen}" alt="${producto.nombre}" />
-                        `;
-                        productosDiv.appendChild(productoDiv);
-                    });
-                });
-            
-            document.getElementById('agregarProductoForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                const nuevoProducto = {
-                    nombre: document.getElementById('nombre').value,
-                    descripcion: document.getElementById('descripcion').value,
-                    stock: document.getElementById('stock').value,
-                    precio_venta: document.getElementById('precio_venta').value,
-                    fecha: document.getElementById('fecha').value,
-                    imagen: document.getElementById('imagen').value,
-                };
-                fetch('/api/productos', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(nuevoProducto)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    alert(data.mensaje);
-                    location.reload();
-                });
-            });
-
-            document.getElementById('actualizarProductoForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                const id = document.getElementById('id').value;
-                const productoActualizado = {
-                    nombre: document.getElementById('nombreAct').value,
-                    descripcion: document.getElementById('descripcionAct').value,
-                    stock: document.getElementById('stockAct').value,
-                    precio_venta: document.getElementById('precio_ventaAct').value,
-                    fecha: document.getElementById('fechaAct').value,
-                    imagen: document.getElementById('imagenAct').value,
-                };
-                fetch(`/api/productos/${id}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(productoActualizado)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    alert(data.mensaje);
-                    location.reload();
-                });
-            });
-        });
-    </script>
+    <section class="productos">
+        {% for producto in productos %}
+        <div class="producto">
+            <img src="{{ url_for('static', filename='recursos/' ~ producto.imagen) }}" alt="{{ producto.nombre }}">
+            <h3>{{ producto.nombre }}</h3>
+            <p>{{ producto.descripcion }}</p>
+            <a href="{{ url_for('editar_producto', id=producto.id) }}"><button>Editar</button></a>
+            <a href="{{ url_for('eliminar_producto', id=producto.id) }}"><button>Eliminar</button></a>
+        </div>
+        {% endfor %}
+    </section>
+            <div class="seccion_footer reglamentos_footer">
+                <h3>Reglamentos</h3>
+                <ul>
+                    <li><a href="#">Terminos y condiciones</a></li>
+                    <li><a href="#">Politica de privacidad</a></li>
+                    <li><a href="#">Defensa del consumidor</a></li>
+                    <li><a href="./sitio/faqs.html">Preguntas frecuentes</a></li>
+                </ul>
+            </div>
+            <div class="seccion_footer menu_footer">
+                <h3>Menu</h3>
+                <ul>
+                    <li><a href="/index.html">Inicio</a></li>
+                    <li><a href="./sitio/ofertas.html">Ofertas</a></li>
+                    <li><a href="./sitio/nosotros.html">Nosotros</a></li>
+                    <li><a href="./sitio/productos.html">Productos</a></li>
+                    <li><a href="./sitio/contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="seccion_footer contacto_footer">
+                <h3>Contacto</h3>
+                <ul class="info_footer">
+                    <li>
+                        <span><i class="fa-solid fa-location-dot"></i></span>
+                        <P>1204 Avenida Pueyrredon<br>Capital Federal CP 1205</P>
+                    </li>
+                    <li>
+                        <span><i class="fa-solid fa-phone"></i></span>
+                        <p>Aten. al cliente: (+54) 011 1111-2222<br>Reclamos: (+54) 011 1111-3333</p>
+                    </li>
+                    <li>
+                        <span><i class="fa-solid fa-envelope"></i></span>
+                        <p>sweetcandy@gmail.com</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>©2023 - Todos los Derechos Reservados / Sweet Candy</p>
+        </div>
+    </footer>
 </body>
 </html>
