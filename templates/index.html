@@ -21,8 +21,8 @@
             <img src="{{ url_for('static', filename='recursos/' ~ producto.imagen) }}" alt="{{ producto.nombre }}">
             <h3>{{ producto.nombre }}</h3>
             <p>{{ producto.descripcion }}</p>
-            <a href="{{ url_for('editar_producto', id=producto.id) }}"><button>Editar</button></a>
-            <a href="{{ url_for('eliminar_producto', id=producto.id) }}"><button>Eliminar</button></a>
+            <a href="{{ url_for('web.editar_producto', id=producto.id) }}"><button>Editar</button></a>
+            <a href="{{ url_for('web.eliminar_producto', id=producto.id) }}"><button>Eliminar</button></a>
         </div>
         {% endfor %}
     </section>

@@ -62,8 +62,8 @@ class Producto:
         self.conexion.commit()
         self.conexion.close()
      # ...
-@classmethod
-def eliminar(cls, id):
+    @classmethod
+    def eliminar(cls, id):
         cls.conexion.connect()
         cursor = cls.conexion.cursor()
         consulta = f"DELETE FROM {cls.tabla} WHERE id = %s"
