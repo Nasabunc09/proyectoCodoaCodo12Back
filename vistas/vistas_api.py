@@ -44,3 +44,16 @@ def eliminar_producto(id):
         return jsonify({'mensaje': 'Producto eliminado exitosamente'})
   except Exception as e:
         return jsonify({'error': str(e)}), 500
+@api.route('/api/carrito', methods=['POST'])
+def agregar_carrito():
+    id_usuario = request.form.get('idUsuario')
+    id_producto = request.form.get('idProducto')
+    cantidad = request.form.get('cantidad')
+
+    if not id_usuario or not id_producto or not cantidad:
+        return jsonify({"error": "Datos incompletos"}), 400
+
+    carrito = Carrito(idUsuario=id_usuario, idProducto=id_producto, cantidad=cantidad)
+    carrito.agregar_db()
+
+    return jsonify({"mensaje": "Producto añadido al carrito"}), 201  

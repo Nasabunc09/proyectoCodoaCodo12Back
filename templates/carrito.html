@@ -1,0 +1,31 @@
+<!-- carrito.html -->
+<!-- templates/carrito.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Carrito</title>
+</head>
+<body>
+    <h1>Carrito de Compras</h1>
+    <table>
+        <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Acciones</th>
+        </tr>
+        {% for item in carrito %}
+        <tr>
+            <td>{{ item.nombre }}</td>
+            <td>{{ item.cantidad }}</td>
+            <td>{{ item.precio_venta }}</td>
+            <td>
+                <form action="{{ url_for('web.eliminar_del_carrito', idProducto=item.idProducto) }}" method="post">
+                    <button type="submit">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

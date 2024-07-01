@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from componentes.producto import Producto
-
+from componentes.carrito import Carrito
 web = Blueprint('web', __name__)
 
 @web.route('/')
@@ -50,3 +50,54 @@ def eliminar_producto(id):
     if producto:
         producto.eliminar_db()
     return redirect(url_for('web.index'))
+# Ruta para mostrar el carrito
+
+@web.route('/carrito')
+def ver_carrito():
+    id_usuario = 1  # Aquí podrías obtener el id del usuario autenticado
+    productos_carrito = Carrito.obtener_carrito(id_usuario)
+    return render_template('carrito.html', carrito=productos_carrito)
+
+@web.route('/carrito/agregar', methods=['POST'])
+def agregar_al_carrito():
+    id_usuario = 1  # Aquí podrías obtener el id del usuario autenticado
+    id_producto = request.form['idProducto']
+    cantidad = request.form['cantidad']
+    carrito_item = Carrito(idUsuario=id_usuario, idProducto=id_producto, cantidad=cantidad)
+    carrito_item.agregar_db()
+    flash('Producto agregado al carrito')
+    return redirect(url_for('web.ver_carrito'))
+
+@web.route('/carrito/eliminar/<int:idProducto>', methods=['POST'])
+def eliminar_del_carrito(idProducto):
+    id_usuario = 1  # Aquí podrías obtener el id del usuario autenticado
+    Carrito.eliminar_producto(id_usuario, idProducto)
+    flash('Producto eliminado del carrito')
+    return redirect(url_for('web.ver_carrito'))
+
+"""
+@web.route('/carrito')
+def ver_carrito():
+    idUsuario = 1  # Este debería ser el ID del usuario autenticado
+    productos_carrito = Carrito.obtener_carrito(idUsuario)
+    return render_template('carrito.html', productos=productos_carrito)
+# Ruta para agregar producto al carrito
+
+@web.route('/agregar_carrito/<int:idProducto>', methods=['POST'])
+def agregar_carrito(idProducto):
+    idUsuario = 1  # Este debería ser el ID del usuario autenticado
+    cantidad = request.form['cantidad']
+    carrito = Carrito(idUsuario, idProducto, int(cantidad))
+    carrito.agregar_producto()
+    flash('Producto agregado al carrito')
+    return redirect(url_for('web.index'))
+
+
+
+# Ruta para eliminar producto del carrito
+@web.route('/eliminar_carrito/<int:idProducto>', methods=['POST'])
+def eliminar_carrito(idProducto):
+    idUsuario = 1  # Este debería ser el ID del usuario autenticado
+    Carrito.eliminar_producto(idUsuario, idProducto)
+    flash('Producto eliminado del carrito')
+    return redirect(url_for('web.ver_carrito'))"""
