@@ -1,6 +1,7 @@
 #import config_db
-from componentes.config_db import conexion
+from base_db.config_db import conexion
 from datetime import datetime
+
 class Producto:
     # Atributos de clase
     tabla = 'producto'
