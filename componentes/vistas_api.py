@@ -1,9 +1,5 @@
 from flask import Blueprint, jsonify, request
 from componentes.producto import Producto
-<<<<<<< HEAD
-from app import app
-=======
->>>>>>> daniela
 
 api = Blueprint('api', __name__)
 
@@ -26,9 +22,6 @@ def agregar_producto():
     nuevo_producto.guardar_db()
     return jsonify({"mensaje": "Producto agregado exitosamente"}), 201
 
-<<<<<<< HEAD
-# Agregar más rutas para actualizar y eliminar productos según sea necesario
-=======
 @api.route('/api/productos/<int:id>', methods=['PUT'])
 def actualizar_producto(id):
     datos = request.json
@@ -51,4 +44,3 @@ def eliminar_producto(id):
         return jsonify({'mensaje': 'Producto eliminado exitosamente'})
   except Exception as e:
         return jsonify({'error': str(e)}), 500
->>>>>>> daniela
