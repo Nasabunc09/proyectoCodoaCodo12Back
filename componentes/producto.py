@@ -5,7 +5,7 @@ from datetime import datetime
 class Producto:
     # Atributos de clase
     tabla = 'producto'
-    campos = ('nombre', 'descripcion', 'stock', 'precio_venta', 'fecha', 'imagen')
+    campos = ('id','nombre', 'descripcion', 'stock', 'precio_venta', 'fecha', 'imagen')
     conexion = conexion
 
     # Método constructor

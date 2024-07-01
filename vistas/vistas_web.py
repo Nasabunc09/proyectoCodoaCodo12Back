@@ -3,6 +3,7 @@ from componentes.producto import Producto
 
 web = Blueprint('web', __name__)
 
+
 @web.route('/')
 def index():
     productos = Producto.obtener_todos()
