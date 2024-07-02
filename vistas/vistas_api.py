@@ -1,3 +1,86 @@
+# vistas/vistas_api.py
+
+from flask import Blueprint, request, jsonify
+from componentes.modelos import Usuario
+from componentes.producto import Producto
+from componentes.carrito import Carrito
+from componentes.modelos import Orden, Orden_Detalle
+
+api = Blueprint('api', __name__)
+
+@api.route('/api/login', methods=['POST'])
+def login():
+    data = request.json
+    email = data.get('email')
+    password = data.get('password')
+    user = Usuario.obtener(email=email)
+    if user and user.check_password(password):
+        return jsonify({'message': 'Login exitoso', 'user_id': user.id})
+    return jsonify({'message': 'Credenciales incorrectas'}), 401
+
+@api.route('/api/register', methods=['POST'])
+def register():
+    data = request.json
+    email = data.get('email')
+    password = data.get('password')
+    usuario = Usuario(email, password)
+    if usuario.guardar_db():
+        return jsonify({'message': 'Registro exitoso'})
+    return jsonify({'message': 'Error al registrar usuario'}), 400
+
+@api.route('/api/productos', methods=['GET'])
+def obtener_productos():
+    productos = Producto.obtener_todos()
+    return jsonify(productos)
+
+@api.route('/api/producto/<int:id>', methods=['GET'])
+def obtener_producto(id):
+    producto = Producto.obtener_por_id(id)
+    if producto:
+        return jsonify(producto.to_dict())
+    return jsonify({'message': 'Producto no encontrado'}), 404
+
+@api.route('/api/producto', methods=['POST'])
+def crear_producto():
+    data = request.json
+    producto = Producto(**data)
+    if producto.guardar_db():
+        return jsonify({'message': 'Producto creado exitosamente'})
+    return jsonify({'message': 'Error al crear producto'}), 400
+
+@api.route('/api/carrito', methods=['POST'])
+def agregar_carrito():
+    data = request.json
+    carrito = Carrito(**data)
+    if carrito.guardar_db():
+        return jsonify({'message': 'Producto agregado al carrito'})
+    return jsonify({'message': 'Error al agregar producto al carrito'}), 400
+
+@api.route('/api/carrito/<int:idUsuario>', methods=['GET'])
+def obtener_carrito(idUsuario):
+    productos_carrito = Carrito.obtener_carrito(idUsuario)
+    return jsonify(productos_carrito)
+
+@api.route('/api/carrito/<int:idUsuario>/<int:idProducto>', methods=['DELETE'])
+def eliminar_carrito(idUsuario, idProducto):
+    if Carrito.eliminar_producto(idUsuario, idProducto):
+        return jsonify({'message': 'Producto eliminado del carrito'})
+    return jsonify({'message': 'Error al eliminar producto del carrito'}), 400
+
+@api.route('/api/orden', methods=['POST'])
+def crear_orden():
+    data = request.json
+    orden = Orden(**data)
+    if orden.guardar_db():
+        for detalle in data.get('detalles', []):
+            orden_detalle = Orden_Detalle(**detalle)
+            orden_detalle.guardar_db()
+        return jsonify({'message': 'Orden creada exitosamente'})
+    return jsonify({'message': 'Error al crear la orden'}), 400
+
+
+
+"""
 from flask import Blueprint, jsonify, request
 
 from componentes.modelos import Producto
@@ -50,8 +133,6 @@ def eliminar_producto(id):
         return jsonify({'mensaje': 'Producto eliminado exitosamente'})
   except Exception as e:
         return jsonify({'error': str(e)}), 500
-<<<<<<< HEAD
-=======
 
 # @api.route('/api/carrito', methods=['POST'])
 # def agregar_carrito():
@@ -67,7 +148,6 @@ def eliminar_producto(id):
 
 #     return jsonify({"mensaje": "Producto añadido al carrito"}), 201  
 
->>>>>>> a6b716ad1eb28b31eda2757d637a52a720632292
 
 #Crear Usuario
 @api.route("/api-sweet_candy/Usuario", methods=['POST'])
@@ -155,29 +235,4 @@ def eliminar_cta_perfil():
         respuesta = {'mensaje': 'no se recibieron datos.'}
         
     return jsonify(respuesta)
-<<<<<<< HEAD
-@api.route('/api/carrito', methods=['GET'])
-def obtener_carrito():
-    id_usuario = 1  # Aquí podrías obtener el id del usuario autenticado
-    productos_carrito = Carrito.obtener_carrito(id_usuario)
-    return jsonify(productos_carrito)
-
-# Agregar un producto al carrito
-@api.route('/api/carrito/agregar', methods=['POST'])
-def agregar_al_carrito():
-    id_usuario = 1  # Aquí podrías obtener el id del usuario autenticado
-    id_producto = request.json.get('idProducto')
-    cantidad = request.json.get('cantidad')
-    carrito_item = Carrito(idUsuario=id_usuario, idProducto=id_producto, cantidad=cantidad)
-    carrito_item.agregar_db()
-    return jsonify({'message': 'Producto agregado al carrito'})
-
-# Eliminar un producto del carrito
-@api.route('/api/carrito/eliminar/<int:idProducto>', methods=['DELETE'])
-def eliminar_del_carrito(idProducto):
-    id_usuario = 1  # Aquí podrías obtener el id del usuario autenticado
-    Carrito.eliminar_producto(id_usuario, idProducto)
-    return jsonify({'message': 'Producto eliminado del carrito'})
-=======
-
->>>>>>> a6b716ad1eb28b31eda2757d637a52a720632292
+"""

@@ -1,0 +1,17 @@
+<!-- templates/ver_producto.html -->
+{% extends 'layout.html' %}
+
+{% block content %}
+<h1>{{ producto.nombre }}</h1>
+<p>{{ producto.descripcion }}</p>
+<p>Precio: ${{ producto.precio_venta }}</p>
+<p>Stock: {{ producto.stock }}</p>
+<img src="{{ producto.imagen }}" alt="{{ producto.nombre }}">
+<form action="{{ url_for('web.agregar_carrito') }}" method="post">
+    <input type="hidden" name="idProducto" value="{{ producto.id }}">
+    <label for="cantidad">Cantidad:</label>
+    <input type="number" name="cantidad" min="1" max="{{ producto.stock }}" required>
+    <button type="submit">Agregar al Carrito</button>
+</form>
+<a href="{{ url_for('web.index') }}">Volver</a>
+{% endblock %}

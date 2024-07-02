@@ -1,0 +1,14 @@
+<!-- templates/login.html -->
+{% extends 'layout.html' %}
+
+{% block content %}
+<h1>Iniciar Sesión</h1>
+<form action="{{ url_for('web.login') }}" method="post">
+    <label for="email">Email:</label>
+    <input type="email" name="email" required>
+    <label for="password">Contraseña:</label>
+    <input type="password" name="password" required>
+    <button type="submit">Iniciar Sesión</button>
+</form>
+<a href="{{ url_for('web.register') }}">Registrarse</a>
+{% endblock %}
