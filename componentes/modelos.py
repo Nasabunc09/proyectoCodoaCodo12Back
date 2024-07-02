@@ -1,6 +1,6 @@
 # Clases que corresponden a entidades en la BBDD
 from base_db.tabla_db import Tabla
-from base_db.config_db import conexion as con
+from base_db.conexion_db import conexion as con
 from auxiliares.cifrado import encriptar
 
 class Producto(Tabla):

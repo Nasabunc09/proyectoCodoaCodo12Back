@@ -1,5 +1,5 @@
 # componentes/carrito.py
-from componentes.config_db import conexion
+from base_db.conexion_db import conexion
 
 class Carrito:
     tabla = 'carrito'

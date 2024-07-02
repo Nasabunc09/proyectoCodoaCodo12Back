@@ -1,5 +1,5 @@
 #import config_db
-from base_db.config_db import conexion
+from base_db.conexion_db import conexion
 from datetime import datetime
 
 class Producto:
