@@ -47,21 +47,21 @@ def eliminar_producto(id):
         return jsonify({'mensaje': 'Producto eliminado exitosamente'})
   except Exception as e:
         return jsonify({'error': str(e)}), 500
-<<<<<<< HEAD
-@api.route('/api/carrito', methods=['POST'])
-def agregar_carrito():
-    id_usuario = request.form.get('idUsuario')
-    id_producto = request.form.get('idProducto')
-    cantidad = request.form.get('cantidad')
 
-    if not id_usuario or not id_producto or not cantidad:
-        return jsonify({"error": "Datos incompletos"}), 400
+# @api.route('/api/carrito', methods=['POST'])
+# def agregar_carrito():
+#     id_usuario = request.form.get('idUsuario')
+#     id_producto = request.form.get('idProducto')
+#     cantidad = request.form.get('cantidad')
 
-    carrito = Carrito(idUsuario=id_usuario, idProducto=id_producto, cantidad=cantidad)
-    carrito.agregar_db()
+#     if not id_usuario or not id_producto or not cantidad:
+#         return jsonify({"error": "Datos incompletos"}), 400
 
-    return jsonify({"mensaje": "Producto añadido al carrito"}), 201  
-=======
+#     carrito = Carrito(idUsuario=id_usuario, idProducto=id_producto, cantidad=cantidad)
+#     carrito.agregar_db()
+
+#     return jsonify({"mensaje": "Producto añadido al carrito"}), 201  
+
 
 #Crear Usuario
 @api.route("/api-sweet_candy/Usuario", methods=['POST'])
@@ -149,4 +149,4 @@ def eliminar_cta_perfil():
         respuesta = {'mensaje': 'no se recibieron datos.'}
         
     return jsonify(respuesta)
->>>>>>> f4e127e9a4c4d13039c1504c5b1d703c2676a674
+
