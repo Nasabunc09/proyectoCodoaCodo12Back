@@ -91,6 +91,3 @@ class Usuario(Tabla):
             return resultado[0]
         print("Autenticación fallida")
         return None
-
-
-   

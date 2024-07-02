@@ -1,10 +1,10 @@
 
-
 from flask import Blueprint, render_template, request, redirect, url_for, flash,session
 from componentes.producto import Producto
 from componentes.modelos import Usuario
 from componentes.carrito import Carrito
-from componentes.modelos import Orden, Orden_Detalle
+from componentes.modelos import Orden
+from componentes.modelos import Orden_Detalle
 
 web = Blueprint('web', __name__)
 
@@ -19,6 +19,13 @@ def ver_producto(id):
     if producto:
         return render_template('ver_producto.html', producto=producto)
     return redirect(url_for('web.index'))
+
+@web.route('/usuarios')
+def usuarios():
+    usuario = Usuario.obtener()
+    if usuario:
+        return render_template('usuarios.html', usuario=usuario)
+    return redirect(url_for('web.usuarios'))
 
 @web.route('/login', methods=['GET', 'POST'])
 def login():
