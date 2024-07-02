@@ -1,10 +1,10 @@
 from flask import Blueprint, request, jsonify
-from componentes.modelos import Usuario
 from componentes.producto import Producto
 from componentes.carrito import Carrito
 from componentes.modelos import Orden
 from componentes.modelos import Orden_Detalle
 from componentes.modelos import Persona
+from componentes.modelos import Usuario
 
 api = Blueprint('api', __name__)
 
@@ -78,97 +78,12 @@ def crear_orden():
         return jsonify({'message': 'Orden creada exitosamente'})
     return jsonify({'message': 'Error al crear la orden'}), 400
 
+
 #Mostrar Usuario
 
-@api.route('/api/usuarios', methods=['POST'])
+@api.route('/api/usuarios', methods=['GET'])
 def obtener_usuarios():
-    
-    if request.method == 'POST':
-        correo = request.json['datos']
-        cuenta = Usuario.obtener('email', correo)
-        perfil = Persona.obtener('idUsuario', cuenta.id)
-        perfil = perfil.__dict__
-        perfil['email'] = cuenta.correo
-        del perfil['id']
-        del perfil['idUsuario']
-    
-    return jsonify(perfil)    
-
-@api.route('/api/usuario-eliminar', methods=['DELETE'])
-def eliminar_cta_perfil():
-    
-    if request.method == 'DELETE':
-        datos = request.json["datos"]
-        cuenta = Usuario.obtener('email', datos)
-        
-        eliminar_perfil = Persona.eliminar(cuenta.id)
-        eliminar_cuenta = Usuario.eliminar(cuenta.id)
-        
-        if eliminar_cuenta == eliminar_perfil:
-            respuesta = {'mensaje': eliminar_perfil}
-        else:
-            respuesta = {'mensaje': 'Algo salió mal!'}
-    
-    else:
-        respuesta = {'mensaje': 'no se recibieron datos.'}
-        
-    return jsonify(respuesta)
-
-
-# @api.route('/api-sweet_candy/productos', methods=['GET'])
-# def obtener_productos():
-#     productos = Producto.obtener()
-#     return jsonify(productos)
-
-# @api.route('/api-sweet_candy/productos', methods=['POST'])
-# def agregar_producto():
-#     datos = request.json
-#     nuevo_producto = Producto(
-#         nombre=datos['nombre'],
-#         descripcion=datos['descripcion'],
-#         stock=datos['stock'],
-#         precio_venta=datos['precio_venta'],
-#         fecha=datos['fecha'],
-#         imagen=datos['imagen']
-#     )
-#     nuevo_producto.guardar_db()
-#     return jsonify({"mensaje": "Producto agregado exitosamente"}), 201
-
-# @api.route('/api/productos/<int:id>', methods=['PUT'])
-# def actualizar_producto(id):
-#     datos = request.json
-#     producto = Producto.actualizar(id)
-#     if producto:
-#         producto.nombre = datos.get('nombre', producto.nombre)
-#         producto.descripcion = datos.get('descripcion', producto.descripcion)
-#         producto.stock = datos.get('stock', producto.stock)
-#         producto.precio_venta = datos.get('precio_venta', producto.precio_venta)
-#         producto.fecha = datos.get('fecha', producto.fecha)
-#         producto.imagen = datos.get('imagen', producto.imagen)
-#         producto.actualizar_db()
-#         return jsonify({"mensaje": "Producto actualizado exitosamente"})
-#     return jsonify({"mensaje": "Producto no encontrado"}), 404
-
-# @api.route('/api/productos/<int:id>', methods=['DELETE'])
-# def eliminar_producto(id):
-#   try:
-#         Producto.eliminar(id)
-#         return jsonify({'mensaje': 'Producto eliminado exitosamente'})
-#   except Exception as e:
-#         return jsonify({'error': str(e)}), 500
-
-# @api.route('/api/carrito', methods=['POST'])
-# def agregar_carrito():
-#     id_usuario = request.form.get('idUsuario')
-#     id_producto = request.form.get('idProducto')
-#     cantidad = request.form.get('cantidad')
-
-#     if not id_usuario or not id_producto or not cantidad:
-#         return jsonify({"error": "Datos incompletos"}), 400
-
-#     carrito = Carrito(idUsuario=id_usuario, idProducto=id_producto, cantidad=cantidad)
-#     carrito.agregar_db()
-
-#     return jsonify({"mensaje": "Producto añadido al carrito"}), 201  
+    usuarios = Usuario.obtener()
+    return jsonify(usuarios)    
 
 
