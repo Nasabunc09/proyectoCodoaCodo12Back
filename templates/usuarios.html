@@ -1,0 +1,16 @@
+<!-- templates/usuarios.html -->
+{% extends 'layout.html' %}
+
+{% block content %}
+<h1>Usuarios</h1>
+<div class="Usuarios"></div>
+    {% for usuario in usuarios %}
+        <div class="usuarios"></div>
+            <p>{{ usuario.email }}</p>
+            <p>{{ usuario.password }}</p>
+            <p>{{ usuario.fecha }}</p>
+            <a href="{{ url_for('web.index') }}">Volver</a>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

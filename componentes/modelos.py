@@ -89,29 +89,3 @@ class Usuario(Tabla):
         if resultado:
             return resultado[0]
         return None
-
-
-"""       
-class Usuario(Tabla):
-    
-    tabla = 'usuario'
-    conexion = con
-    campos = ('id', 'email', 'password', 'fecha')
-    
-    def __init__(self, *args, de_bbdd=False):
-        
-        if not de_bbdd:
-            cuenta = []
-            cuenta.append(args[0])
-            cuenta.append(encriptar(args[1]))
-            super().crear(tuple(cuenta), de_bbdd)
-        else:
-            super().crear(args, de_bbdd)
-        @classmethod
-        def autenticar(cls, email, password):
-            hashed_password = encriptar(password)
-            consulta = f"SELECT * FROM {cls.tabla} WHERE email = %s AND password = %s"
-            resultado = cls.__conectar(consulta, (email, hashed_password))
-            if resultado:
-               return resultado[0]
-            return None         """ 
