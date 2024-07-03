@@ -22,8 +22,9 @@ def ver_producto(id):
 
 @web.route('/usuarios')
 def usuarios():
-    usuarios = Usuario.obtener()
-    return render_template('usuarios.html', usuarios=usuarios)
+    usuario = Usuario.obtener()
+    usuario = [d.__dict__ for d in usuario]
+    return render_template('usuarios.html', usuario=usuario)
 
 @web.route('/login', methods=['GET', 'POST'])
 def login():

@@ -84,6 +84,7 @@ def crear_orden():
 @api.route('/api/usuarios', methods=['GET'])
 def obtener_usuarios():
     usuarios = Usuario.obtener()
-    return jsonify(usuarios)    
+    usuarios_dicc = [d.__dict__ for d in usuarios]
+    return jsonify(usuarios_dicc)
 
 
