@@ -2,21 +2,30 @@
 {% extends 'layout.html' %}
 
 <h1>Usuarios</h1>
-    
 
-    <div class="usuario">
-        <tr>
-            <th>Email</th>
-            <th>Pass</th>
-            <th>Fecha</th>
-        </tr>
+{% if usuarios %}
+<table class="table" border="1" style="color: #000000 ">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">id</th>
+        <th scope="col">email</th>
+        <th scope="col">password</th>
+        <th scope="col">fecha</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for mostrar in usuarios %}
+      <tr>
+        <th scope="row">{{mostrar.id}}</th>
+        <td>{{mostrar.email}}</td>
+        <td>{{mostrar.password}}</td>
+        <td>{{mostrar.fecha}}</td>
+      </tr>
       {% endfor %}
     </tbody>
   </table>
   {% else %}
   <p> No hay datos </p>
   {% endif %}
-  <a href="{{ url_for('web.index') }}">Volver</a>    </div>     
-
- 
-{% endblock %}
+  <a href="{{ url_for('web.index') }}">Volver</a>

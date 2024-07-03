@@ -4,15 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <h1>Candy Store</h1>
+    <div class="logo">
+        <h1>Sweet Candy Adm</h1>
+    </div>
     <link rel="stylesheet" href="{{ url_for('static', filename='.css/styles.css') }}">
 <body>
     <nav>
-        <a href="{{ url_for('web.index') }}">Inicio</a>
-        <a href="{{ url_for('web.ver_carrito') }}">Carrito</a>
-        <a href="{{ url_for('web.login') }}">Iniciar Sesión</a>
-        <a href="{{ url_for('web.register') }}">Registrarse</a>
-        <a href="{{ url_for('web.usuarios') }}">Usuarios</a>
+        <ul>
+            <a href="{{ url_for('web.index') }}">Inicio</a><i class="fa-solid fa-house" style="color: #631f83;"></i></a></li>
+            <a href="{{ url_for('web.ver_carrito') }}">Carrito</a>
+            <a href="{{ url_for('web.login') }}">Iniciar Sesión</a>
+            <a href="{{ url_for('web.register') }}">Registrarse</a>
+            <a href="{{ url_for('web.usuarios') }}">Usuarios</a>
+        </ul>
     </nav>
     <div class="container">
         {% with messages = get_flashed_messages(with_categories=true) %}
