@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Producto</title>
-    <link rel="stylesheet" href="../static/css/styles.css">
-</head>
-<body>
+    <link rel="stylesheet" href="{{ url_for('static', filename='.css/styles.css') }}">
+
+
     <h1>Editar Producto</h1>
     <form action="{{ url_for('web.editar_producto', id=producto.id) }}" method="POST">
         <label for="nombre">Nombre:</label>
@@ -29,6 +24,8 @@
         
         <button type="submit">Actualizar</button>
     </form>
+
     <a href="{{ url_for('web.index') }}">Volver a Inicio</a>
-</body>
-</html>
+    <a href="{{ url_for('web.eliminar_producto', id=producto.id) }}">Eliminar</a>
+    
+

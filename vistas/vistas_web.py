@@ -40,6 +40,13 @@ def editar_producto(id):
         return redirect(url_for('web.index'))
     return render_template('editar_producto.html', producto=producto)
 
+@web.route('/eliminar_producto/<int:id>', methods=['POST'])
+def eliminar_producto(id):
+    producto = Producto.obtener_por_id(id)
+    if producto:
+        producto.eliminar()
+    return redirect(url_for('web.index'))
+
 @web.route('/usuarios')
 def usuarios():
     usuario = Usuario.obtener()

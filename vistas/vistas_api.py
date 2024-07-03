@@ -63,6 +63,14 @@ def editar_producto(id):
         return jsonify({"mensaje": "Producto actualizado exitosamente"})
     return jsonify({"mensaje": "Producto no encontrado"}), 404
 
+@api.route('/api/eliminar_producto/<int:id>', methods=['POST'])
+def eliminar_producto(id):
+  try:
+        Producto.eliminar(id)
+        return jsonify({'mensaje': 'Producto eliminado exitosamente'})
+  except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 @api.route('/api/carrito', methods=['POST'])
 def agregar_carrito():
     data = request.json
