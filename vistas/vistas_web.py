@@ -20,6 +20,26 @@ def ver_producto(id):
         return render_template('ver_producto.html', producto=producto)
     return redirect(url_for('web.index'))
 
+@web.route('/editar_producto/<int:id>', methods=['GET', 'POST'])
+def editar_producto(id):
+    producto = Producto.obtener_por_id(id)
+    if not producto:
+        flash("Producto no encontrado")
+        return redirect(url_for('web.index'))
+    if request.method == 'POST':
+        producto.nombre = request.form['nombre']
+        producto.descripcion = request.form['descripcion']
+        producto.stock = request.form['stock']
+        producto.precio_venta = request.form['precio_venta']
+        producto.fecha = request.form['fecha']
+        producto.imagen = request.form['imagen']
+        
+        producto.actualizar_db()
+        
+        flash("Producto actualizado exitosamente")
+        return redirect(url_for('web.index'))
+    return render_template('editar_producto.html', producto=producto)
+
 @web.route('/usuarios')
 def usuarios():
     usuario = Usuario.obtener()

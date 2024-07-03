@@ -97,33 +97,6 @@ LOCK TABLES `domicilio` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `imagen`
---
-
-DROP TABLE IF EXISTS `imagen`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `imagen` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `idProducto` int(30) NOT NULL,
-  `url_img` varchar(50) DEFAULT NULL,
-  `texto_alt` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_producto_imagen` (`idProducto`),
-  CONSTRAINT `fk_producto_imagen` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `imagen`
---
-
-LOCK TABLES `imagen` WRITE;
-/*!40000 ALTER TABLE `imagen` DISABLE KEYS */;
-/*!40000 ALTER TABLE `imagen` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `orden`
 --
 
@@ -232,6 +205,7 @@ CREATE TABLE `producto` (
   `stock` int(11) unsigned DEFAULT NULL,
   `precio_venta` decimal(10,2) DEFAULT NULL,
   `fecha` datetime DEFAULT NULL,
+  `imagen` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -242,7 +216,7 @@ CREATE TABLE `producto` (
 
 LOCK TABLES `producto` WRITE;
 /*!40000 ALTER TABLE `producto` DISABLE KEYS */;
-INSERT INTO `producto` VALUES (10,'chocolite almonnt','vegand chocolate',2,500.00,'2024-06-28 02:50:43'),(11,'chupetin cocotulop','vegand cocotulop',5,200.00,'2024-06-28 02:50:43'),(12,'bombones tentation','vegand dulce de leche bites',10,1000.00,'2024-06-28 02:50:43'),(13,'caramelos de chocolate','vemoonam cardane choclaes',1,1000.00,'2024-06-28 02:50:43'),(14,'barrita de frutilla','crunch stranberry',20,300.00,'2024-06-28 02:50:43'),(15,'galletitas limoni','whole-crackers',5,2000.00,'2024-06-28 02:50:43'),(16,'alfajores de maicena','healthy 50gr',5,1000.00,'2024-06-28 02:50:43'),(17,'alfajores de maicena','healthy 150gr',5,2000.00,'2024-06-28 02:50:43'),(28,'caramelos de miel','caramelos blandos sweet honey',3,1000.00,'0000-00-00 00:00:00'),(29,'caramelos de miel','caramelos blandos sweet honey',3,1000.00,'0000-00-00 00:00:00');
+INSERT INTO `producto` VALUES (10,'chocolite almonnt','vegand chocolate',2,500.00,'2024-06-28 02:50:43',NULL),(11,'chupetin cocotulop','vegand cocotulop',5,200.00,'2024-06-28 02:50:43',NULL),(12,'bombones tentation','vegand dulce de leche bites',10,1000.00,'2024-06-28 02:50:43',NULL),(13,'caramelos de chocolate','vemoonam cardane choclaes',1,1000.00,'2024-06-28 02:50:43',NULL),(14,'barrita de frutilla','crunch stranberry',20,300.00,'2024-06-28 02:50:43',NULL),(15,'galletitas limoni','whole-crackers',5,2000.00,'2024-06-28 02:50:43',NULL),(16,'alfajores de maicena','healthy 50gr',5,1000.00,'2024-06-28 02:50:43',NULL),(17,'alfajores de maicena','healthy 150gr',5,2000.00,'2024-06-28 02:50:43',NULL),(28,'caramelos de miel','caramelos blandos sweet honey',3,1000.00,'0000-00-00 00:00:00',NULL),(29,'caramelos de miel','caramelos blandos sweet honey',3,1000.00,'0000-00-00 00:00:00',NULL);
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -281,4 +255,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-07-02 20:42:46
+-- Dump completed on 2024-07-03  1:32:43

@@ -3,20 +3,20 @@
 
 {% block content %}
 <h1>Usuarios</h1>
-{% if usuario %}
-<table style="color:black" >
-    <tr>
-        <th>Email</th>
-        <th>Pass</th>
-        <th>Fecha</th>
-    </tr>
-    <th>{{ usuario.email }}</th>
-    <th>{{ usuario.password }}</th>
-    <th>{{ usuario.fecha }}</th>
-           
-</table>
-{% else %}
-<h1 style="color: #e17d12;">No hay usuarios cargados.</h1>
-{% endif %}
-<a href="{{ url_for('web.index') }}">Volver</a>
+<div class="usuarios"></div>
+    
+
+    <div class="usuario">
+        <tr>
+            <th>Email</th>
+            <th>Pass</th>
+            <th>Fecha</th>
+        </tr>
+        <p>{{ usuario.email }}</p>
+        <p>{{ usuario.password }}</p>
+        <p>{{ usuario.fecha }}</p>
+        <a href="{{ url_for('web.index') }}">Volver</a>
+    </div>     
+
+ 
 {% endblock %}
