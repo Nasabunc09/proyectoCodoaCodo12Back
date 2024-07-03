@@ -1,9 +1,7 @@
 <!-- templates/usuarios.html -->
 {% extends 'layout.html' %}
 
-{% block content %}
 <h1>Usuarios</h1>
-<div class="usuarios"></div>
     
 
     <div class="usuario">
@@ -12,11 +10,13 @@
             <th>Pass</th>
             <th>Fecha</th>
         </tr>
-        <p>{{ usuario.email }}</p>
-        <p>{{ usuario.password }}</p>
-        <p>{{ usuario.fecha }}</p>
-        <a href="{{ url_for('web.index') }}">Volver</a>
-    </div>     
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p> No hay datos </p>
+  {% endif %}
+  <a href="{{ url_for('web.index') }}">Volver</a>    </div>     
 
  
 {% endblock %}
