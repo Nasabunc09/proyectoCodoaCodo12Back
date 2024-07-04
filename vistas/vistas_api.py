@@ -65,11 +65,12 @@ def editar_producto(id):
 
 @api.route('/api/eliminar_producto/<int:id>', methods=['POST'])
 def eliminar_producto(id):
-  try:
-        Producto.eliminar(id)
-        return jsonify({'mensaje': 'Producto eliminado exitosamente'})
-  except Exception as e:
-        return jsonify({'error': str(e)}), 500
+  if request.method == 'POST':
+    try:
+            Producto.eliminar(id)
+            return jsonify({'mensaje': 'Producto eliminado exitosamente'})
+    except Exception as e:
+            return jsonify({'error': str(e)}), 500
 
 @api.route('/api/carrito', methods=['POST'])
 def agregar_carrito():

@@ -1,5 +1,12 @@
 
-from flask import Blueprint, render_template, request, redirect, url_for, flash,session
+from flask import Blueprint
+from flask import render_template
+from flask import request
+from flask import redirect
+from flask import url_for
+from flask import flash
+from flask import session
+
 from componentes.producto import Producto
 from componentes.carrito import Carrito
 from componentes.modelos import Orden
@@ -50,7 +57,8 @@ def eliminar_producto(id):
 @web.route('/usuarios')
 def usuarios():
     usuario = Usuario.obtener()
-    usuario = [d.__dict__ for d in usuario]
+    print(usuario)
+    #usuario = [d.__dict__ for d in usuario]
     return render_template('usuarios.html', usuario=usuario)
 
 @web.route('/login', methods=['GET', 'POST'])

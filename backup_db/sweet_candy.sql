@@ -216,7 +216,7 @@ CREATE TABLE `producto` (
 
 LOCK TABLES `producto` WRITE;
 /*!40000 ALTER TABLE `producto` DISABLE KEYS */;
-INSERT INTO `producto` VALUES (10,'chocolite almonnt','vegand chocolate',2,500.00,'2024-06-28 02:50:43',NULL),(11,'chupetin cocotulop','vegand cocotulop',5,200.00,'2024-06-28 02:50:43',NULL),(12,'bombones tentation','vegand dulce de leche bites',10,1000.00,'2024-06-28 02:50:43',NULL),(13,'caramelos de chocolate','vemoonam cardane choclaes',1,1000.00,'2024-06-28 02:50:43',NULL),(14,'barrita de frutilla','crunch stranberry',20,300.00,'2024-06-28 02:50:43',NULL),(15,'galletitas limoni','whole-crackers',5,2000.00,'2024-06-28 02:50:43',NULL),(16,'alfajores de maicena','healthy 50gr',5,1000.00,'2024-06-28 02:50:43',NULL),(17,'alfajores de maicena','healthy 150gr',5,2000.00,'2024-06-28 02:50:43',NULL),(28,'caramelos de miel','caramelos blandos sweet honey',3,1000.00,'0000-00-00 00:00:00',NULL),(29,'caramelos de miel','caramelos blandos sweet honey',3,1000.00,'0000-00-00 00:00:00',NULL);
+INSERT INTO `producto` VALUES (10,'chocolite almonnt','vegand chocolate',10,500.00,'2024-07-03 00:00:00','chocolate.jfif'),(11,'chupetin cocotulop','vegand cocotulop',5,200.00,'2024-07-03 00:00:00','chupetin.jfif'),(12,'bombones tentation','vegand dulce de leche bites',10,1000.00,'2024-06-28 02:50:43','bocaditos.jfif'),(13,'caramelos de chocolate','vemoonam cardane choclaes',1,1000.00,'2024-06-28 02:50:43','caramelo.jfif'),(14,'barrita de frutilla','crunch stranberry',20,300.00,'2024-06-28 02:50:43','turron.jfif'),(15,'galletitas limoni','whole-crackers',5,2000.00,'2024-06-28 02:50:43','galletitas-limon.jfif'),(16,'alfajores de maicena','healthy 50gr',5,1000.00,'2024-06-28 02:50:43','alfajor.jfif'),(17,'alfajores de maicena','healthy 150gr',5,2000.00,'2024-06-28 02:50:43','alfajor.jfif'),(28,'caramelos de miel','caramelos blandos sweet honey',3,1000.00,'0000-00-00 00:00:00','miel.jfif');
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -255,4 +255,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-07-03  1:32:43
+-- Dump completed on 2024-07-03 19:45:07

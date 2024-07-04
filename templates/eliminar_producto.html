@@ -1,9 +1,15 @@
+<!-- templates/usuarios.html -->
+{% extends 'layout.html' %}
+
+{% block content %}
+
 <title>Eliminar Producto</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='.css/styles.css') }}">
 
 
 <h1>Eliminar Producto</h1>
 <form action="{{ url_for('web.eliminar_producto', id=producto.id) }}" method="POST">
+
     <label for="nombre">Nombre:</label>
     <input type="text" id="nombre" name="nombre" value="{{ producto.nombre }}" disabled><br>
     
@@ -22,6 +28,7 @@
     <label for="imagen">URL de Imagen:</label>
     <input type="text" id="imagen" name="imagen" value="{{ producto.imagen }}" disabled><br>
     <button  type="submit">Eliminar</button>
+    
 </form>
 <a href="{{ url_for('web.index') }}">Volver a Inicio</a>
-
+{% endblock %}
