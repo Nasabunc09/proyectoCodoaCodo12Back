@@ -3,20 +3,30 @@
 
 {% block content %}
 <h1>Usuarios</h1>
+
 {% if usuario %}
-<table>
-    <tr>
-        <th>Email</th>
-        <th>Pass</th>
-        <th>Fecha</th>
-    </tr>
-    <th>{{ usuario.email }}</th>
-    <th>{{ usuario.password }}</th>
-    <th>{{ usuario.fecha }}</th>
-           
+<table class="table table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Email</th>
+        <th scope="col">Password</th>
+        <th scope="col">Fecha</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for mostrar in usuario %}
+      <tr>
+        <th scope="row">{{mostrar.id}}</th>
+        <td>{{mostrar.email}}</td>
+        <td>{{mostrar.password}}</td>
+        <td>{{mostrar.fecha}}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
 </table>
 {% else %}
-<h1 style="color: #e17d12;">No hay usuarios cargados.</h1>
+<p> No hay datos </p>
 {% endif %}
-<a href="{{ url_for('web.index') }}">Volver</a>
+    <br><a href="{{ url_for('web.index') }}">Volver</a>
 {% endblock %}

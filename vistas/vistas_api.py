@@ -48,6 +48,30 @@ def crear_producto():
         return jsonify({'message': 'Producto creado exitosamente'})
     return jsonify({'message': 'Error al crear producto'}), 400
 
+@api.route('/api/editar_producto/<int:id>', methods=['PUT'])
+def editar_producto(id):
+    datos = request.json
+    producto = Producto.obtener_por_id(id)
+    if producto:
+        producto.nombre = datos.get('nombre', producto.nombre)
+        producto.descripcion = datos.get('descripcion', producto.descripcion)
+        producto.stock = datos.get('stock', producto.stock)
+        producto.precio_venta = datos.get('precio_venta', producto.precio_venta)
+        producto.fecha = datos.get('fecha', producto.fecha)
+        producto.imagen = datos.get('imagen', producto.imagen)
+        producto.actualizar_db()
+        return jsonify({"mensaje": "Producto actualizado exitosamente"})
+    return jsonify({"mensaje": "Producto no encontrado"}), 404
+
+@api.route('/api/eliminar_producto/<int:id>', methods=['POST'])
+def eliminar_producto(id):
+  if request.method == 'POST':
+    try:
+            Producto.eliminar(id)
+            return jsonify({'mensaje': 'Producto eliminado exitosamente'})
+    except Exception as e:
+            return jsonify({'error': str(e)}), 500
+
 @api.route('/api/carrito', methods=['POST'])
 def agregar_carrito():
     data = request.json
@@ -82,8 +106,9 @@ def crear_orden():
 #Mostrar Usuario
 
 @api.route('/api/usuarios', methods=['GET'])
-def obtener_usuarios():
+def listar_usuarios():
     usuarios = Usuario.obtener()
-    return jsonify(usuarios)    
+    usuarios_dicc = [d.__dict__ for d in usuarios]
+    return jsonify(usuarios_dicc)
 
 

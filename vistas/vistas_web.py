@@ -1,5 +1,12 @@
 
-from flask import Blueprint, render_template, request, redirect, url_for, flash,session
+from flask import Blueprint
+from flask import render_template
+from flask import request
+from flask import redirect
+from flask import url_for
+from flask import flash
+from flask import session
+
 from componentes.producto import Producto
 from componentes.carrito import Carrito
 from componentes.modelos import Orden
@@ -20,10 +27,39 @@ def ver_producto(id):
         return render_template('ver_producto.html', producto=producto)
     return redirect(url_for('web.index'))
 
+@web.route('/editar_producto/<int:id>', methods=['GET', 'POST'])
+def editar_producto(id):
+    producto = Producto.obtener_por_id(id)
+    if not producto:
+        flash("Producto no encontrado")
+        return redirect(url_for('web.index'))
+    if request.method == 'POST':
+        producto.nombre = request.form['nombre']
+        producto.descripcion = request.form['descripcion']
+        producto.stock = request.form['stock']
+        producto.precio_venta = request.form['precio_venta']
+        producto.fecha = request.form['fecha']
+        producto.imagen = request.form['imagen']
+        
+        producto.actualizar_db()
+        
+        flash("Producto actualizado exitosamente")
+        return redirect(url_for('web.index'))
+    return render_template('editar_producto.html', producto=producto)
+
+@web.route('/eliminar_producto/<int:id>', methods=['POST'])
+def eliminar_producto(id):
+    producto = Producto.obtener_por_id(id)
+    if producto:
+        producto.eliminar()
+    return redirect(url_for('web.index'))
+
 @web.route('/usuarios')
 def usuarios():
-    usuarios = Usuario.obtener()
-    return render_template('usuarios.html', usuarios=usuarios)
+    usuario = Usuario.obtener()
+    print(usuario)
+    #usuario = [d.__dict__ for d in usuario]
+    return render_template('usuarios.html', usuario=usuario)
 
 @web.route('/login', methods=['GET', 'POST'])
 def login():

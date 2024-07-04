@@ -1,11 +1,13 @@
 <!-- templates/index.html -->
 {% extends 'layout.html' %}
 
+
 {% block content %}
 <h1>Productos</h1>
 <div class="productos">
     {% for producto in productos %}
         <div class="producto">
+            <center><img src="/static/imagenes/{{ producto.imagen }}" alt="{{ producto.imagen }}" style="width:80px;height:80px;"></center>
             <h2>{{ producto.nombre }}</h2>
             <p>{{ producto.descripcion }}</p>
             <p>Precio: ${{ producto.precio_venta }}</p>

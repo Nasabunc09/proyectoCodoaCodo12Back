@@ -4,17 +4,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Candy Store</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <div class="logo">
+        <title>Tienda de Golosinas</title>
+    </div>
+    <script src="https://kit.fontawesome.com/a03e984235.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos-general.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos-carrito.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos-producto.css') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
+<header class="header">
+    <div class="header_superior">
+        <div class="logo">
+            <h1>Sweet Candy Admin</h1>
+        </div>
+        
+    </div>
+<div class="contenedor_menu">
+    <div class="menu">
+        <input type="checkbox" id="check_menu">
+        <label id="label_check" for="check_menu">
+        <i class="fa-solid fa-bars icon_menu " style="color: #631f83;"></i>
+        </label>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('web.index') }}">INICIO</a></li>
+                <li><a href="{{ url_for('web.ver_carrito') }}">CARRITO</a></li>
+                <li><a href="{{ url_for('web.login') }}">INICIAR SESION</a></li> 
+                <li><a href="{{ url_for('web.register') }}">REGISTRARSE</a></li>
+                <li><a href="{{ url_for('web.usuarios') }}">USUARIOS</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
 <body>
-    <nav>
-        <a href="{{ url_for('web.index') }}">Inicio</a>
-        <a href="{{ url_for('web.ver_carrito') }}">Carrito</a>
-        <a href="{{ url_for('web.login') }}">Iniciar Sesión</a>
-        <a href="{{ url_for('web.register') }}">Registrarse</a>
-        <a href="{{ url_for('web.usuarios') }}">Usuarios</a>
-    </nav>
     <div class="container">
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}

@@ -3,15 +3,19 @@
 
 {% block content %}
 <h1>{{ producto.nombre }}</h1>
+<img src="/static/imagenes/{{ producto.imagen }}" alt="{{ producto.imagen }}" style="width:80px;height:80px;">
 <p>{{ producto.descripcion }}</p>
 <p>Precio: ${{ producto.precio_venta }}</p>
 <p>Stock: {{ producto.stock }}</p>
-<img src="{{ producto.imagen }}" alt="{{ producto.nombre }}">
 <form action="{{ url_for('web.agregar_carrito') }}" method="post">
     <input type="hidden" name="idProducto" value="{{ producto.id }}">
     <label for="cantidad">Cantidad:</label>
     <input type="number" name="cantidad" min="1" max="{{ producto.stock }}" required>
     <button type="submit">Agregar al Carrito</button>
 </form>
-<a href="{{ url_for('web.index') }}">Volver</a>
+<nav>
+<a href="{{ url_for('web.index') }}">Volver -</a>
+<a href="{{ url_for('web.editar_producto', id=producto.id) }}">Editar</a>
+
+</nav>
 {% endblock %}
