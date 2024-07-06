@@ -22,7 +22,7 @@ class Producto:
         self.conexion.connect()
         cursor = self.conexion.cursor()
         now = datetime.now()
-        consulta = f'INSERT INTO {self.tabla} {str(self.campos).replace("\'", "`")} VALUES (%s, %s, %s, %s, %s, %s)'
+        consulta = f'INSERT INTO {self.tabla} {str(self.campos).replace("'", "`")} VALUES (%s, %s, %s, %s, %s, %s)'
         datos = (self.nombre, self.descripcion, self.stock, self.precio_venta, self.fecha, self.imagen)
         cursor.execute(consulta, datos)
         self.conexion.commit()
